@@ -165,33 +165,33 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input name="name" id="name" type="text" class="form-control" placeholder="Nom & prénom" >
+                                <input name="name" id="name" type="text" class="form-control" placeholder="Nom & prénom" onchange="change(event)" >
                             </div>
                         </div>
 
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input name="email" id="email" type="email" class="form-control" placeholder=" Email ">
+                                <input name="email" id="email" type="email" class="form-control" placeholder=" Email " onchange="change(event)">
                             </div>
                         </div>
                          <div class="col-lg-6">
                             <div class="form-group">
-                                <input name="subject" id="subject" type="text" class="form-control" placeholder="Objet">
+                                <input name="subject" id="subject" type="text" class="form-control" placeholder="Objet" onchange="change(event)">
                             </div>
                         </div>
                          <div class="col-lg-6">
                             <div class="form-group">
-                                <input name="phone" id="phone" type="text" class="form-control" placeholder="Téléphone">
+                                <input name="phone" id="phone" type="text" class="form-control" placeholder="Téléphone" onchange="change(event)">
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group-2 mb-4">
-                        <textarea name="message" id="message" class="form-control" rows="8" placeholder="Message"></textarea>
+                        <textarea name="message" id="message" class="form-control" rows="8" placeholder="Message" onchange="change(event)"></textarea>
                     </div>
 
                     <div class="text-center">
-                        <input class="btn btn-main btn-round-full" name="submit" type="submit" value="Envoyer le Messege"></input>
+                        <input class="btn btn-main btn-round-full" name="submit" type="submit" value="Envoyer le Messege" id="submit" click="sendMail"></input>
                     </div>
                 </form>
             </div>
@@ -271,10 +271,7 @@
 		  <div class="col-lg-6">
 			<div class="copyright">
 			  &copy; Copyright Reserved to
-			  <span class="text-color">Iris</span> by
-			  <a href="https://www.linkedin.com/in/hadhemi-ouni/" target="_blank"
-				>Hadhami</a
-			  >
+			  <span class="text-color">Iris</span>
 			</div>
 		  </div>
 		  
@@ -309,6 +306,73 @@
     
     <script src="js/script.js"></script>
     <script src="js/contact.js"></script>
-
+	<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+	</script>
+	<script>
+		const myButton = document.getElementById("submit")
+		emailjs.init({
+			publicKey: 'W_0cW_ZiaHYUvKIYy',
+			blockHeadless: true,
+			});
+		function sendMail() {
+			let name = document.getElementById("name")
+			let message = document.getElementById("message")
+			let phone = document.getElementById("phone")
+			let subject = document.getElementById("subject")
+			let email = document.getElementById("email")
+			let error = false
+			if(!name.value) {
+				error = true
+				name.style.backgroundColor = "#f74343";
+			}
+			if(!message.value) {
+				error = true
+				message.style.backgroundColor = "#f74343";
+			}
+			if(!subject.value) {
+				error = true
+				subject.style.backgroundColor = "#f74343";
+			}
+			if(!email.value) {
+				error = true
+				email.style.backgroundColor = "#f74343";
+			}
+			if(!phone.value) {
+				error = true
+				phone.style.backgroundColor = "#f74343";
+			}
+			if(error){
+				window.alert("Remplissez tous les champs")
+			}
+			else{
+				let templateParams = {
+					name: name.value,
+					message: message.value,
+					phone: phone.value,
+					subject: subject.value,
+					email: email.value
+				}
+				emailjs.send('service_6b6o9l4', 'template_0usetd6', templateParams).then(
+					(response) => {
+						name.value = ""
+						message.value = ""
+						subject.value = ""
+						email.value = ""
+						phone.value = ""
+						window.alert("Message envoyé avec succés")
+					},
+					(error) => {
+						console.log('FAILED...', error);
+						window.alert("Des problèmes techniques sont survenus, veuillez réessayer plus tard")
+					},
+				);
+			}
+		}
+		myButton.onclick = sendMail;
+		function change(event){
+			event.target.style.backgroundColor = ""
+		}
+	</script>
   </body>
   </html>

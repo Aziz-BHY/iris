@@ -499,7 +499,7 @@ a:focus {
   }
   .banner {
     min-height: 450px;
-    background: #fff !important;
+    
   }
 }
 
@@ -510,7 +510,7 @@ a:focus {
   }
   .banner {
     min-height: 450px;
-    background: #fff !important;
+    
   }
 }
 
@@ -520,13 +520,13 @@ a:focus {
     line-height: 70px;
   }
   .banner {
-    background: #fff !important;
+    
   }
 }
 
 @media (max-width: 992px) {
   .banner {
-    background: #fff !important;
+    
   }
 }
 

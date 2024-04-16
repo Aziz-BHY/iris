@@ -54,11 +54,18 @@
    .banner .block h1 {
       font-size: 38px;
       line-height: 50px;
+      background: $light;
+      background: url("../images/bg/slider-bg-1.jpg") no-repeat;
+      background-size: cover;
+      min-height: 550px;
   }
 
   .banner{
     min-height: 450px;
-    background: $light!important;
+    background: $light;
+    background: url("../images/bg/slider-bg-1.jpg") no-repeat;
+    background-size: cover;
+    min-height: 550px;
   }
 }
 
@@ -71,7 +78,10 @@
 
   .banner{
      min-height: 450px;
-    background: $light!important;
+      background: $light;
+     background: url("../images/bg/slider-bg-1.jpg") no-repeat;
+     background-size: cover;
+     min-height: 550px;
   }
 
 }
@@ -84,20 +94,29 @@
     }
 
     .banner{
-      background: $light!important;
+      background: $light;
+      background: url("../images/bg/slider-bg-1.jpg") no-repeat;
+      background-size: cover;
+      min-height: 550px;
     }
 
 }
 
 @include desktop{
     .banner{
-      background: $light!important;
+      background: $light;
+      background: url("../images/bg/slider-bg-1.jpg") no-repeat;
+      background-size: cover;
+      min-height: 550px;
     }
 }
 
 @include large-desktop{
     .banner{
-      // background: $light!important;
+      background: $light;
+      background: url("../images/bg/slider-bg-1.jpg") no-repeat;
+      background-size: cover;
+      min-height: 550px;
     }
 }
 

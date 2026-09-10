@@ -1,196 +1,141 @@
-
-
-
 ;(function ($) {
+  'use strict';
 
-	'use strict';
-	
- // SCROLL TO TOP
-  
+  // SCROLL TO TOP BEHAVIOR
   $(window).on('scroll', function () {
-    if ($(window).scrollTop() > 70) {
-        $('.backtop').addClass('reveal');
+    if ($(window).scrollTop() > 100) {
+      $('.backtop, .backtop-modern').addClass('reveal');
     } else {
-        $('.backtop').removeClass('reveal');
+      $('.backtop, .backtop-modern').removeClass('reveal');
     }
-});
- 
-	$('.portfolio-single-slider').slick({
-		infinite: true,
-		arrows: false,
-		autoplay: true,
-		autoplaySpeed: 2000
+  });
 
-	});
+  $('.backtop, .backtop-modern').on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, 400);
+  });
 
-	$('.clients-logo').slick({
-		infinite: true,
-		arrows: false,
-		autoplay: true,
-		slidesToShow: 6,
-		slidesToScroll: 6,
-		autoplaySpeed: 6000,
-		responsive: [
-		    {
-		      breakpoint: 1024,
-		      settings: {
-		        slidesToShow:6,
-		        slidesToScroll: 6,
-		        infinite: true,
-		        dots: true
-		      }
-		    },
-		    {
-		      breakpoint: 900,
-		      settings: {
-		        slidesToShow:4,
-		        slidesToScroll: 4
-		      }
-		    },{
-		      breakpoint: 600,
-		      settings: {
-		        slidesToShow: 4,
-		        slidesToScroll: 4
-		      }
-		    },
-		    {
-		      breakpoint: 480,
-		      settings: {
-		        slidesToShow: 2,
-		        slidesToScroll: 2
-		      }
-		    }
-		  
-  		]
-	});
+  // Mobile Navigation: Close dropdowns and collapses when clicking a normal link
+  $('.navbar-nav .nav-link:not(.dropdown-toggle)').on('click', function () {
+    if ($(window).width() < 992) {
+      $('.navbar-collapse').collapse('hide');
+    }
+  });
 
-	$('.testimonial-wrap').slick({
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		infinite: true,
-		dots: true,
-		arrows: false,
-		autoplay: true,
-		vertical:true,
-		verticalSwiping:true,
-		autoplaySpeed: 6000,
-		responsive: [
-		    {
-		      breakpoint: 1024,
-		      settings: {
-		        slidesToShow:1,
-		        slidesToScroll: 1,
-		        infinite: true,
-		        dots: true
-		      }
-		    },
-		    {
-		      breakpoint: 900,
-		      settings: {
-		        slidesToShow: 1,
-		        slidesToScroll: 1
-		      }
-		    },{
-		      breakpoint: 600,
-		      settings: {
-		        slidesToShow: 1,
-		        slidesToScroll: 1
-		      }
-		    },
-		    {
-		      breakpoint: 480,
-		      settings: {
-		        slidesToShow: 1,
-		        slidesToScroll: 1
-		      }
-		    }
-		  
-  		]
-	});
+  // Mobile Dropdown Toggle Fix
+  $('.dropdown-toggle').on('click', function (e) {
+    if ($(window).width() < 992) {
+      e.preventDefault();
+      $(this).next('.dropdown-menu').toggleClass('show');
+    }
+  });
 
-	$('.testimonial-wrap-2').slick({
-		slidesToShow: 2,
-		slidesToScroll: 2,
-		infinite: true,
-		dots: true,
-		arrows:false,
-		autoplay: true,
-		autoplaySpeed: 6000,
-		responsive: [
-		    {
-		      breakpoint: 1024,
-		      settings: {
-		        slidesToShow:2,
-		        slidesToScroll:2,
-		        infinite: true,
-		        dots: true
-		      }
-		    },
-		    {
-		      breakpoint: 900,
-		      settings: {
-		        slidesToShow: 1,
-		        slidesToScroll: 1
-		      }
-		    },{
-		      breakpoint: 600,
-		      settings: {
-		        slidesToShow: 1,
-		        slidesToScroll: 1
-		      }
-		    },
-		    {
-		      breakpoint: 480,
-		      settings: {
-		        slidesToShow: 1,
-		        slidesToScroll: 1
-		      }
-		    }
-		  
-  		]
-	});
-
-
-
-	var map;
-
-	function initialize() {
-		var mapOptions = {
-			zoom: 13,
-			center: new google.maps.LatLng(50.97797382271958, -114.107718560791)
-			// styles: style_array_here
-		};
-		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-	}
-
-	var google_map_canvas = $('#map-canvas');
-
-	if (google_map_canvas.length) {
-		google.maps.event.addDomListener(window, 'load', initialize);
-	}
-
-	// Counter
-
-	$('.counter-stat span').counterUp({
-	      delay: 10,
-	      time: 1000
-	  });
-
-		
- // Shuffle js filter and masonry
-    var Shuffle = window.Shuffle;
-    var jQuery = window.jQuery;
-
-    var myShuffle = new Shuffle(document.querySelector('.shuffle-wrapper'), {
-        itemSelector: '.shuffle-item',
-        buffer: 1
+  // Sliders with safe initialization
+  if ($('.portfolio-single-slider').length) {
+    $('.portfolio-single-slider').slick({
+      infinite: true,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 2000
     });
+  }
 
-    jQuery('input[name="shuffle-filter"]').on('change', function (evt) {
-        var input = evt.currentTarget;
-        if (input.checked) {
-            myShuffle.filter(input.value);
+  if ($('.clients-logo').length) {
+    $('.clients-logo').slick({
+      infinite: true,
+      arrows: false,
+      autoplay: true,
+      slidesToShow: 6,
+      slidesToScroll: 2,
+      autoplaySpeed: 3000,
+      pauseOnHover: true,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 2,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1
+          }
         }
+      ]
     });
+  }
+
+  if ($('.testimonial-wrap').length) {
+    $('.testimonial-wrap').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      infinite: true,
+      dots: true,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 6000
+    });
+  }
+
+  // Counter
+  if ($('.counter-stat span').length && $.fn.counterUp) {
+    $('.counter-stat span').counterUp({
+      delay: 10,
+      time: 1000
+    });
+  }
+
+  // Shuffle.js filter and masonry (Safely guarded)
+  var shuffleWrapper = document.querySelector('.shuffle-wrapper');
+  if (shuffleWrapper && window.Shuffle) {
+    var myShuffle = new window.Shuffle(shuffleWrapper, {
+      itemSelector: '.shuffle-item',
+      buffer: 1
+    });
+
+    $('input[name="shuffle-filter"]').on('change', function (evt) {
+      var input = evt.currentTarget;
+      if (input.checked) {
+        myShuffle.filter(input.value);
+      }
+    });
+
+    $('.filter-btn').on('click', function (e) {
+      e.preventDefault();
+      $('.filter-btn').removeClass('active');
+      $(this).addClass('active');
+      var group = $(this).attr('data-group');
+      if (group === 'all') {
+        myShuffle.filter(window.Shuffle.ALL_ITEMS);
+      } else {
+        myShuffle.filter(group);
+      }
+    });
+  }
+
+  // Google Maps safe initialization
+  var googleMapCanvas = $('#map-canvas');
+  if (googleMapCanvas.length && typeof google !== 'undefined' && google.maps) {
+    try {
+      var mapOptions = {
+        zoom: 14,
+        center: new google.maps.LatLng(36.7644, 10.2289) // Megrine, Ben Arous, Tunisia
+      };
+      new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    } catch (err) {
+      console.warn('Map initialization failed:', err);
+    }
+  }
 
 })(jQuery);
